@@ -1,0 +1,49 @@
+public class Solution {
+
+	/*
+	 * Binary Tree Node class
+	 * 
+	 * class BinaryTreeNode<T> { T data; BinaryTreeNode<T> left; BinaryTreeNode<T>
+	 * right;
+	 * 
+	 * public BinaryTreeNode(T data) { this.data = data; } }
+	 */
+
+	/*
+	 * LinkedList Node Class
+	 *
+	 * 
+	 * class LinkedListNode<T> { T data; LinkedListNode<T> next;
+	 * 
+	 * public LinkedListNode(T data) { this.data = data; } }
+	 */
+
+	public static LinkedListNode<Integer> constructLinkedList(BinaryTreeNode<Integer> root) {
+		if (root == null)
+			return null;
+		LinkedListNode<Integer> head = new LinkedListNode<>(root.data);
+		helper(root, head);
+		return head.next;
+	}
+
+	private static LinkedListNode<Integer> helper(BinaryTreeNode<Integer> currBSTNode, LinkedListNode<Integer> currLLNode) {
+		if (currBSTNode == null)
+			return currLLNode;
+		if (currBSTNode.left != null)
+			currLLNode = helper(currBSTNode.left, currLLNode);
+
+		// currLLNode = addNode(currBSTNode, currLLNode);
+		currLLNode.next =new LinkedListNode<>(currBSTNode.data);// same work like addNode function;
+		currLLNode=currLLNode.next; 
+
+		if (currBSTNode.right != null)
+			currLLNode = helper(currBSTNode.right, currLLNode);
+		return currLLNode;
+	}
+
+	private static LinkedListNode<Integer> addNode(BinaryTreeNode<Integer> currBSTNode, LinkedListNode<Integer> currLLNode) {
+		LinkedListNode<Integer> newNode = new LinkedListNode<>(currBSTNode.data);
+		currLLNode.next = newNode;
+		return newNode;
+	}
+}
