@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+
+public class Solution {
+
+	/*
+	 * Binary Tree Node class
+	 * 
+	 * class BinaryTreeNode<T> {
+	 * T data;
+	 * BinaryTreeNode<T> left;
+	 * BinaryTreeNode<T> right;
+	 * public BinaryTreeNode(T data)
+	 * {
+	 * this.data = data;
+	 * }
+	 * }
+	 */
+
+	public static ArrayList<Integer> getPath(BinaryTreeNode<Integer> root, int data) {
+		if (root == null)
+			return null;
+		if (root.data == data) {
+			ArrayList<Integer> ans = new ArrayList<>();
+			ans.add(root.data);
+			return ans;
+		}
+		ArrayList<Integer> leftAns = getPath(root.left, data);
+		if (leftAns != null) {
+			leftAns.add(root.data);
+			return leftAns;
+		}
+		ArrayList<Integer> rightAns = getPath(root.right, data);
+		if (rightAns != null) {
+			rightAns.add(root.data);
+			return rightAns;
+		}
+		return null;
+	}
+}
