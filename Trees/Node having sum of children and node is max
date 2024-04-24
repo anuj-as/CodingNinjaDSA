@@ -1,0 +1,50 @@
+public class Solution {
+
+    /*
+     * TreeNode structure
+     * 
+     * class TreeNode<T> {
+     * T data;
+     * ArrayList<TreeNode<T>> children;
+     * 
+     * TreeNode(T data){
+     * this.data = data;
+     * children = new ArrayList<TreeNode<T>>();
+     * }
+     * }
+     */
+    static class maxNodePair<T> {
+        TreeNode<T> node;
+        int sum;
+
+        maxNodePair() {
+            this.node = null;
+            this.sum = Integer.MIN_VALUE;
+        }
+    }
+
+    public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root) {
+        // Write your code here
+        return maxSumNodeHelper(root).node;
+    }
+
+    private static maxNodePair<Integer> maxSumNodeHelper(TreeNode<Integer> root) {
+        if (root == null)
+            return new maxNodePair<>();
+        int sum = root.data;
+        for (TreeNode<Integer> child : root.children) {
+            sum += child.data;
+        }
+        maxNodePair<Integer> ans = new maxNodePair<>();
+        ans.node = root;
+        ans.sum = sum;
+        for (TreeNode<Integer> child : root.children) {
+            maxNodePair<Integer> childAns = maxSumNodeHelper(child);
+            if(childAns.sum>ans.sum){
+                ans=childAns;
+            }
+        }
+        return ans;
+
+    }
+}
