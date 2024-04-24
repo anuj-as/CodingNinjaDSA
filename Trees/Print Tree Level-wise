@@ -1,0 +1,39 @@
+import java.util.*;
+public class Solution {
+
+	/*
+	 * TreeNode structure
+	 * 
+	 * class TreeNode<T> {
+	 * T data;
+	 * ArrayList<TreeNode<T>> children;
+	 * 
+	 * TreeNode(T data){
+	 * this.data = data;
+	 * children = new ArrayList<TreeNode<T>>();
+	 * }
+	 * }
+	 */
+
+	public static void printLevelWise(TreeNode<Integer> root) {
+		if (root == null)
+			return;
+		Queue<TreeNode<Integer>> pendingChildren = new LinkedList<>();
+		pendingChildren.add(root);
+		pendingChildren.add(null);
+
+		while (!pendingChildren.isEmpty()) {
+			TreeNode<Integer> front = pendingChildren.poll();
+			if (front != null) {
+				System.out.print(front.data+" ");
+				for(int i=0;i<front.children.size();i++){
+					pendingChildren.add(front.children.get(i));
+				}
+			}else{
+				System.out.println();
+				if(!pendingChildren.isEmpty())
+					pendingChildren.add(null);
+			}
+		}
+	}
+}
